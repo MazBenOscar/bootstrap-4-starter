@@ -2,16 +2,16 @@ const gulp = require("gulp");
 const browserSync = require("browser-sync").create();
 const sass = require("gulp-sass");
 
-//Compile SAss & INject into Browser
+// Compile Sass & Inject Into Browser
 gulp.task("sass", function() {
   return gulp
-    .src(["node_modules/bootstrap/scss/bootsctrap.scss", "src/scss/*.scss"])
+    .src(["node_modules/bootstrap/scss/bootstrap.scss", "src/scss/*.scss"])
     .pipe(sass())
     .pipe(gulp.dest("src/css"))
     .pipe(browserSync.stream());
 });
 
-//Move JS Files to src/js
+// Move JS Files to src/js
 gulp.task("js", function() {
   return gulp
     .src([
@@ -23,28 +23,27 @@ gulp.task("js", function() {
     .pipe(browserSync.stream());
 });
 
-//Watch Sass & Server
+// Watch Sass & Serve
 gulp.task("serve", ["sass"], function() {
   browserSync.init({
     server: "./src"
   });
 
-  gulp.watch([
-    "node_modules/bootstrap/scss/bootstrap/scss",
-    "src/scss/*.scss",
+  gulp.watch(
+    ["node_modules/bootstrap/scss/bootstrap.scss", "src/scss/*.scss"],
     ["sass"]
-  ]);
+  );
   gulp.watch("src/*.html").on("change", browserSync.reload);
 });
 
-//Move Fonts folder to src/fonts
+// Move Fonts to src/fonts
 gulp.task("fonts", function() {
   return gulp
     .src("node_modules/font-awesome/fonts/*")
     .pipe(gulp.dest("src/fonts"));
 });
 
-//Move Font Awesome CSS to src/css
+// Move Font Awesome CSS to src/css
 gulp.task("fa", function() {
   return gulp
     .src("node_modules/font-awesome/css/font-awesome.min.css")
